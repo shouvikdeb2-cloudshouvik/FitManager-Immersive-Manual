@@ -1,16 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ================================
+    // PERFORMANCE CHECK - DISABLE HEAVY ANIMATIONS ON LOW-END DEVICES
+    // ================================
+    const isMobile = window.innerWidth <= 768;
+    const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const enableHeavyAnimations = !isMobile && !isLowEndDevice && !prefersReducedMotion;
+    
+    // ================================
     // REGISTER GSAP PLUGINS
     // ================================
     gsap.registerPlugin(ScrollTrigger);
     
+    // Optimize ScrollTrigger for performance
+    ScrollTrigger.config({
+        limitCallbacks: true,
+        ignoreMobileResize: true
+    });
+    
     // ================================
-    // PROFESSIONAL GSAP ANIMATIONS
+    // PROFESSIONAL GSAP ANIMATIONS (CONDITIONAL)
     // ================================
     
-    // Gradient Orb Floating Animation
+    // Gradient Orb Floating Animation - Only on desktop
     function initGradientOrbs() {
+        if (!enableHeavyAnimations) return;
         const orbs = document.querySelectorAll('.gradient-orb');
         orbs.forEach((orb, i) => {
             gsap.to(orb, {
@@ -25,8 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     
-    // Strength Progress Arc Animation
+    // Strength Progress Arc Animation - Only on desktop
     function initStrengthArc() {
+        if (!enableHeavyAnimations) return;
         const progressArc = document.querySelector('.progress-arc');
         if (progressArc) {
             gsap.to(progressArc, {
@@ -43,8 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     
-    // Heartbeat Line Drawing
+    // Heartbeat Line Drawing - Only on desktop
     function initHeartbeat() {
+        if (!enableHeavyAnimations) return;
         const heartbeatLine = document.querySelector('.heartbeat-line');
         if (heartbeatLine) {
             const length = heartbeatLine.getTotalLength();
@@ -63,8 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     
-    // Power Icon Pulse
+    // Power Icon Pulse - Only on desktop
     function initPowerIcon() {
+        if (!enableHeavyAnimations) return;
         const powerIcon = document.querySelector('.power-icon');
         if (powerIcon) {
             gsap.to(powerIcon, {
@@ -445,35 +463,39 @@ document.addEventListener("DOMContentLoaded", () => {
     initAnimations();
 
     // ================================
-    // LENIS SMOOTH SCROLLING
+    // LENIS SMOOTH SCROLLING - DISABLED ON MOBILE FOR PERFORMANCE
     // ================================
-    const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        smooth: true,
-        smoothWheel: true,
-        wheelMultiplier: 0.8,
-        touchMultiplier: 1.5,
-    });
+    let lenis = null;
+    if (!isMobile) {
+        lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true,
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 1.5,
+        });
 
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+    }
 
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.defaults({ toggleActions: "play reverse play reverse" });
 
     // ================================
-    // CUSTOM CURSOR
+    // CUSTOM CURSOR - DESKTOP ONLY
     // ================================
     const cursorDot = document.querySelector(".cursor-dot");
     const cursorOutline = document.querySelector(".cursor-outline");
     const customCursor = document.querySelector(".custom-cursor");
     
-    if (window.matchMedia("(pointer: fine)").matches && cursorDot && cursorOutline) {
+    // Only enable custom cursor on desktop with fine pointer and good performance
+    if (enableHeavyAnimations && window.matchMedia("(pointer: fine)").matches && cursorDot && cursorOutline) {
         let mouseX = 0, mouseY = 0;
         let outlineX = 0, outlineY = 0;
         
@@ -504,11 +526,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ================================
-    // PARTICLES
+    // PARTICLES - REDUCED FOR PERFORMANCE
     // ================================
     const particlesContainer = document.getElementById("particles");
-    if (particlesContainer) {
-        for (let i = 0; i < 50; i++) {
+    if (particlesContainer && enableHeavyAnimations) {
+        // Reduced from 50 to 15 particles for better performance
+        for (let i = 0; i < 15; i++) {
             const particle = document.createElement("div");
             particle.className = "particle";
             particle.style.left = Math.random() * 100 + "%";
@@ -527,6 +550,9 @@ document.addEventListener("DOMContentLoaded", () => {
             
             particlesContainer.appendChild(particle);
         }
+    } else if (particlesContainer) {
+        // Hide particles on mobile/low-end devices
+        particlesContainer.style.display = 'none';
     }
 
     // ================================
