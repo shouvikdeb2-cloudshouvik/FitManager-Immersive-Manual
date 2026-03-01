@@ -2649,3 +2649,374 @@ body::before {
     bottom: 70px;
   }
 }
+
+/* ================================
+   ENHANCED MOBILE EXPERIENCE
+   ================================ */
+
+/* Mobile-first improvements for phones */
+@media (max-width: 768px) {
+  /* Disable sticky behavior on mobile for better scrolling */
+  .interactive-container {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    margin-bottom: 2rem;
+  }
+  
+  /* Better image grid spacing */
+  .interactive-grid {
+    gap: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Full-width images on mobile */
+  .interactive-image {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: contain;
+  }
+  
+  /* Scroll progress - better mobile position */
+  .scroll-progress-wrap {
+    top: auto !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    transform: none !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+  .scroll-progress-svg {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+  .progress-percent {
+    font-size: 0.65rem !important;
+  }
+  
+  /* Hide complex background elements on mobile */
+  .pro-gym-bg,
+  .strength-arc,
+  .heartbeat-svg,
+  .power-icon,
+  .gradient-orb {
+    display: none !important;
+  }
+  
+  /* Improved hero for mobile */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 1.5rem 2rem;
+  }
+  
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Better button touch targets */
+  .btn-primary {
+    min-height: 48px;
+    min-width: 160px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Improved lightbox for mobile */
+  .lightbox-content {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    padding: 10px !important;
+  }
+  
+  .lightbox-image {
+    max-height: 70vh !important;
+    object-fit: contain !important;
+  }
+  
+  .lightbox-close {
+    top: 10px !important;
+    right: 10px !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.2rem !important;
+  }
+  
+  .lightbox-prev,
+  .lightbox-next {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1rem !important;
+  }
+  
+  .lightbox-prev {
+    left: 5px !important;
+  }
+  
+  .lightbox-next {
+    right: 5px !important;
+  }
+  
+  /* Better mobile menu */
+  .mobile-menu {
+    padding: 80px 2rem 2rem;
+  }
+  
+  .mobile-nav-links a {
+    font-size: 1.3rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  /* Better FAB positioning */
+  .fab-top,
+  .fab-print {
+    transform: scale(0.9);
+  }
+}
+
+/* Phone-specific improvements (under 600px) */
+@media (max-width: 600px) {
+  /* Hero improvements */
+  .hero-title {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+    word-break: break-word;
+  }
+  
+  .hero-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+    padding: 0 0.5rem;
+  }
+  
+  /* Better badge layout */
+  .hero-badges {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin: 1.5rem 0 !important;
+  }
+  
+  .hero-badge {
+    font-size: 0.7rem !important;
+    padding: 0.4rem 0.8rem !important;
+    white-space: nowrap;
+  }
+  
+  /* Section titles */
+  .section-title {
+    font-size: 2rem !important;
+    padding: 0 1rem;
+  }
+  
+  .section-desc {
+    font-size: 0.95rem !important;
+    padding: 0 1rem;
+  }
+  
+  /* Cards with images - full width */
+  .interactive-container {
+    margin: 0 0.5rem 1.5rem !important;
+    padding: 12px !important;
+    border-radius: 12px !important;
+  }
+  
+  /* Image captions */
+  .image-caption {
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+    margin-top: 1rem !important;
+    padding: 0.8rem !important;
+    border-left: 3px solid var(--accent) !important;
+    background: rgba(249, 115, 22, 0.05);
+    border-radius: 0 8px 8px 0;
+  }
+  
+  /* Text cards - better mobile grid */
+  .text-card-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    padding: 0 !important;
+  }
+  
+  .text-card-grid .interactive-container {
+    margin: 0 !important;
+  }
+  
+  /* Info boxes */
+  .info-box {
+    padding: 1.25rem !important;
+    border-radius: 12px !important;
+  }
+  
+  .info-box h4 {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Requirements grid */
+  .requirements-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  
+  .req-item {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* FAQ items */
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  
+  .faq-item {
+    padding: 1rem !important;
+  }
+  
+  /* Footer */
+  .footer {
+    padding: 2.5rem 1.5rem 1.5rem !important;
+  }
+  
+  .footer-links {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* Small phones (under 400px) */
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 2rem !important;
+  }
+  
+  .hero-badges {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .section-title {
+    font-size: 1.7rem !important;
+  }
+  
+  .interactive-container {
+    padding: 8px !important;
+  }
+  
+  .image-caption {
+    font-size: 0.8rem !important;
+  }
+  
+  .navbar {
+    padding: 0.8rem 1rem !important;
+  }
+  
+  .logo-img {
+    height: 28px !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects that don't work on touch */
+  .interactive-container:hover {
+    transform: none !important;
+  }
+  
+  /* Better tap targets */
+  .indicator {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav-links a,
+  .mobile-nav-links a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Disable custom cursor on touch */
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  /* Better scroll behavior */
+  .interactive-grid {
+    scroll-snap-type: none !important;
+  }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .hero {
+    min-height: -webkit-fill-available;
+  }
+  
+  body {
+    min-height: -webkit-fill-available;
+  }
+  
+  .fixed-bg {
+    background-attachment: scroll !important;
+  }
+}
+
+/* Landscape phone orientation */
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero {
+    min-height: 100vh;
+    padding: 80px 2rem 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-desc {
+    font-size: 0.85rem !important;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-badges {
+    margin: 0.5rem 0 !important;
+  }
+  
+  .hero-badge {
+    font-size: 0.65rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+  
+  .glowing-orb {
+    display: none;
+  }
+  
+  .interactive-container {
+    max-height: 80vh;
+    overflow: auto;
+  }
+  
+  .interactive-image {
+    max-height: 50vh !important;
+  }
+}
