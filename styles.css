@@ -2717,6 +2717,54 @@ body::before {
    ENHANCED MOBILE EXPERIENCE
    ================================ */
 
+/* Safe area insets for notched phones (iPhone X+, etc.) */
+@supports (padding: env(safe-area-inset-bottom)) or (padding: constant(safe-area-inset-bottom)) {
+  .navbar {
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+  .navbar.scrolled {
+    padding-top: max(0.8rem, env(safe-area-inset-top));
+  }
+  .hero {
+    padding-top: max(100px, calc(80px + env(safe-area-inset-top)));
+  }
+  .fab-top {
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
+  }
+  .fab-print {
+    bottom: max(90px, calc(70px + env(safe-area-inset-bottom)));
+    right: max(30px, env(safe-area-inset-right));
+  }
+  .reading-progress {
+    left: max(15px, env(safe-area-inset-left));
+    bottom: max(30px, env(safe-area-inset-bottom));
+  }
+  .mobile-menu {
+    padding-top: max(80px, calc(60px + env(safe-area-inset-top)));
+  }
+}
+
+@media (max-width: 768px) {
+  .fab-print.visible {
+    bottom: max(75px, calc(55px + env(safe-area-inset-bottom)));
+  }
+  .reading-progress.visible {
+    bottom: max(70px, calc(50px + env(safe-area-inset-bottom)));
+  }
+}
+
+@media (max-width: 480px) {
+  .reading-progress.visible {
+    bottom: max(70px, calc(55px + env(safe-area-inset-bottom)));
+  }
+  .fab-print.visible {
+    bottom: max(65px, calc(45px + env(safe-area-inset-bottom)));
+  }
+}
+
 /* Mobile-first improvements for phones */
 @media (max-width: 768px) {
   /* CRITICAL: Prevent horizontal scrolling */
@@ -2869,18 +2917,54 @@ body::before {
   /* Better mobile menu */
   .mobile-menu {
     padding: 80px 2rem 2rem;
+    padding-top: max(80px, calc(60px + env(safe-area-inset-top, 0)));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom, 0));
   }
   
   .mobile-nav-links a {
     font-size: 1.3rem;
     padding: 1rem 0;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    -webkit-tap-highlight-color: transparent;
   }
   
-  /* Better FAB positioning */
+  .mobile-nav-links a:active {
+    background: rgba(249, 115, 22, 0.15);
+  }
+  
+  /* Mobile menu - ensure toggle is easily tappable */
+  .mobile-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* FAB positioning - avoid overlap on phones */
   .fab-top,
   .fab-print {
     transform: scale(0.9);
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .fab-top {
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fab-print {
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

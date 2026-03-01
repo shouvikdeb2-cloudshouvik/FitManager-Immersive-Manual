@@ -484,6 +484,19 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.ticker.lagSmoothing(0);
     }
 
+    // Safe scroll-to helper: use Lenis on desktop, native smooth scroll on mobile
+    function scrollToTarget(target, offset = -80) {
+        if (lenis && target) {
+            lenis.scrollTo(target, { offset: target.id === "hero" ? 0 : offset });
+        } else if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    function scrollToTop() {
+        if (lenis) lenis.scrollTo(0);
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.defaults({ toggleActions: "play reverse play reverse" });
 
@@ -692,7 +705,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const sectionId = indicator.dataset.section;
             const target = document.getElementById(sectionId);
             if (target) {
-                lenis.scrollTo(target, { offset: sectionId === "hero" ? 0 : -80 });
+                scrollToTarget(target, sectionId === "hero" ? 0 : -80);
             }
         });
     });
@@ -766,13 +779,13 @@ document.addEventListener("DOMContentLoaded", () => {
         lightboxCounter.textContent = `${index + 1} / ${images.length}`;
         lightbox.classList.add("active");
         document.body.style.overflow = "hidden";
-        lenis.stop();
+        if (lenis) lenis.stop();
     }
     
     function closeLightbox() {
         lightbox.classList.remove("active");
         document.body.style.overflow = "";
-        lenis.start();
+        if (lenis) lenis.start();
     }
     
     function nextImage() {
@@ -839,7 +852,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const target = allSections[targetIndex];
             if (target) {
-                lenis.scrollTo(target, { offset: target.id === "hero" ? 0 : -80 });
+                scrollToTarget(target, target.id === "hero" ? 0 : -80);
             }
         }
     });
@@ -1112,7 +1125,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const targetSection = document.getElementById(targetId);
             
             if (targetSection) {
-                lenis.scrollTo(targetSection, { offset: -80 });
+                scrollToTarget(targetSection, -80);
             }
 
             navLinks.forEach(l => l.classList.remove("active"));
@@ -1120,10 +1133,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    fabTop.addEventListener("click", function(e) {
-        e.preventDefault();
-        lenis.scrollTo(0);
-    });
+    if (fabTop) {
+        fabTop.addEventListener("click", function(e) {
+            e.preventDefault();
+            scrollToTop();
+        });
+    }
 
     // Scroll spy for navigation, indicators, FAB visibility, and reading progress
     window.addEventListener("scroll", () => {
@@ -1237,7 +1252,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 if (targetSection) {
                     setTimeout(() => {
-                        lenis.scrollTo(targetSection, { offset: -80 });
+                        scrollToTarget(targetSection, -80);
                     }, 300);
                 }
             });
