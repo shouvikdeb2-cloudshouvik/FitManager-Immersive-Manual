@@ -4,88 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover">
     <title>FitManager | Immersive Manual</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Critical CSS inline for faster first paint -->
+    <style>
+        body{margin:0;background:#0a0a0a;color:#fff;font-family:system-ui,-apple-system,sans-serif}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center}
+        .loading-screen{position:fixed;inset:0;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center}
+    </style>
+    
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=38">
+    <link rel="stylesheet" href="styles.css?v=39">
+    
+    <!-- Deferred Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Deferred Font Awesome -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
 
     <!-- Fixed Background for Mobile -->
     <div class="fixed-bg" aria-hidden="true"></div>
 
-    <!-- Custom Cursor (Desktop) -->
+    <!-- Custom Cursor (Desktop - loaded via JS) -->
     <div class="custom-cursor">
         <div class="cursor-dot"></div>
         <div class="cursor-outline"></div>
     </div>
 
-    <!-- Professional Gym Background Elements -->
+    <!-- Simplified Background Elements -->
     <div class="pro-gym-bg" aria-hidden="true">
-        <!-- Gradient Mesh Orbs -->
+        <!-- Gradient Mesh Orbs - CSS only -->
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
-        <div class="gradient-orb orb-3"></div>
-        
-        <!-- Geometric Grid Lines -->
-        <svg class="grid-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgba(249,115,22,0.1)"/>
-                    <stop offset="100%" style="stop-color:rgba(239,68,68,0.05)"/>
-                </linearGradient>
-            </defs>
-            <line x1="0" y1="25" x2="100" y2="25" stroke="url(#gridGrad)" stroke-width="0.1"/>
-            <line x1="0" y1="50" x2="100" y2="50" stroke="url(#gridGrad)" stroke-width="0.1"/>
-            <line x1="0" y1="75" x2="100" y2="75" stroke="url(#gridGrad)" stroke-width="0.1"/>
-            <line x1="25" y1="0" x2="25" y2="100" stroke="url(#gridGrad)" stroke-width="0.1"/>
-            <line x1="50" y1="0" x2="50" y2="100" stroke="url(#gridGrad)" stroke-width="0.1"/>
-            <line x1="75" y1="0" x2="75" y2="100" stroke="url(#gridGrad)" stroke-width="0.1"/>
-        </svg>
-        
-        <!-- Strength Progress Arc -->
-        <svg class="strength-arc" viewBox="0 0 200 200">
-            <defs>
-                <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#f97316"/>
-                    <stop offset="100%" style="stop-color:#ef4444"/>
-                </linearGradient>
-            </defs>
-            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="4"/>
-            <circle class="progress-arc" cx="100" cy="100" r="80" fill="none" stroke="url(#arcGrad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="502" stroke-dashoffset="502" transform="rotate(-90 100 100)"/>
-        </svg>
-        
-        <!-- Pulse Heartbeat -->
-        <svg class="heartbeat-svg" viewBox="0 0 400 100">
-            <path class="heartbeat-line" d="M0,50 L80,50 L100,50 L120,20 L140,80 L160,35 L180,65 L200,50 L400,50" fill="none" stroke="rgba(239,68,68,0.3)" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        
-        <!-- Floating Power Icon -->
-        <div class="power-icon">
-            <i class="fa-solid fa-bolt"></i>
-        </div>
-        
     </div>
-    
-    <!-- Scroll Progress Indicator -->
-    <div class="scroll-progress-wrap">
-        <svg class="scroll-progress-svg" viewBox="0 0 100 100">
-            <circle class="progress-bg" cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/>
-            <circle class="progress-fill" cx="50" cy="50" r="45" fill="none" stroke="url(#progressGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" transform="rotate(-90 50 50)"/>
-            <defs>
-                <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#f97316"/>
-                    <stop offset="100%" style="stop-color:#22c55e"/>
-                </linearGradient>
-            </defs>
-        </svg>
-        <span class="progress-percent">0%</span>
-    </div>
-
-    <!-- Global Particles Background -->
-    <div class="particles-global" id="particles" aria-hidden="true"></div>
 
     <!-- Section Indicators -->
     <nav class="section-indicators" aria-label="Section navigation">
@@ -125,7 +84,7 @@
     <!-- Cinematic Navbar -->
     <header class="navbar">
         <div class="logo">
-            <img src="images/FitManager.png" alt="FitManager Logo" class="logo-img">
+            <img loading="lazy" src="images/FitManager.png" alt="FitManager Logo" class="logo-img">
         </div>
         <nav class="nav-links" aria-label="Main navigation">
             <a href="#getting-started">Getting Started</a>
@@ -197,7 +156,7 @@
     <!-- Logo Showcase Section -->
     <section class="logo-showcase">
         <div class="logo-showcase-inner">
-            <img src="images/logo.png" alt="FitManager Logo" class="showcase-logo">
+            <img loading="eager" src="images/logo.png" alt="FitManager Logo" class="showcase-logo">
             <div class="logo-glow"></div>
         </div>
     </section>
@@ -227,7 +186,7 @@
                 
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/Activate FitManager page.png" alt="Activate Software" class="interactive-image">
+                        <img loading="lazy" src="images/Activate FitManager page.png" alt="Activate Software" class="interactive-image">
                         <p class="image-caption"><strong>1. Activate the Software:</strong> Enter the master key provided with your software to unlock the first-time setup.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-key"></i><span>Master key is provided with your purchase</span></div>
@@ -236,7 +195,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/Login_Page-2.png" alt="Gym Branding" class="interactive-image">
+                        <img loading="lazy" src="images/Login_Page-2.png" alt="Gym Branding" class="interactive-image">
                         <p class="image-caption"><strong>2. Gym Branding:</strong> Enter your gym name and optionally upload a logo. Both appear on every page and on printed receipts.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-building"></i><span>Your gym name appears on all screens</span></div>
@@ -245,7 +204,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/Login_Page-3.png" alt="Create Admin Account" class="interactive-image">
+                        <img loading="lazy" src="images/Login_Page-3.png" alt="Create Admin Account" class="interactive-image">
                         <p class="image-caption"><strong>3. Create Admin Account:</strong> Set your admin username and password. Write these down and store them safely.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-user-shield"></i><span>Admin has full system access</span></div>
@@ -254,7 +213,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/Login_Page.png" alt="First Login" class="interactive-image">
+                        <img loading="lazy" src="images/Login_Page.png" alt="First Login" class="interactive-image">
                         <p class="image-caption"><strong>4. First Login:</strong> Leave Username blank for admin, enter your password, then click Login to launch the Dashboard.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-right-to-bracket"></i><span>Blank username = Admin login</span></div>
@@ -276,7 +235,7 @@
                 </div>
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/trial bar.png" alt="Trial Bar" class="interactive-image">
+                        <img loading="lazy" src="images/trial bar.png" alt="Trial Bar" class="interactive-image">
                         <p class="image-caption"><strong>The Trial Period:</strong> A red bar at the top counts down your 30-day free trial. All features are available during this time.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-calendar-days"></i><span>30 days full access trial</span></div>
@@ -285,7 +244,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/trial active page.png" alt="How to Activate" class="interactive-image">
+                        <img loading="lazy" src="images/trial active page.png" alt="How to Activate" class="interactive-image">
                         <p class="image-caption"><strong>How to Activate:</strong> Copy your Machine ID, send it to the developer, and paste the unique licence key you receive to unlock permanently.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-fingerprint"></i><span>Unique Machine ID for your PC</span></div>
@@ -307,7 +266,7 @@
                 </div>
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/dashboard-1.png" alt="Summary Cards" class="interactive-image">
+                        <img loading="lazy" src="images/dashboard-1.png" alt="Summary Cards" class="interactive-image">
                         <p class="image-caption"><strong>Summary Cards:</strong> Instantly view Total Members (Blue), Active Members (Green), Pending Members (Amber), and Blocked Members (Red).</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-users" style="color: #3b82f6;"></i><span>Blue = Total registered members</span></div>
@@ -317,7 +276,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/dashboard-2.png" alt="Revenue Summary" class="interactive-image">
+                        <img loading="lazy" src="images/dashboard-2.png" alt="Revenue Summary" class="interactive-image">
                         <p class="image-caption"><strong>Revenue Summary & Date Filters:</strong> View Today's Collection, Monthly Revenue, and Recent Activities using time filters.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-indian-rupee-sign"></i><span>Today's total collection amount</span></div>
@@ -340,7 +299,7 @@
                 </div>
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/member page -1 .png" alt="The Members List" class="interactive-image">
+                        <img loading="lazy" src="images/member page -1 .png" alt="The Members List" class="interactive-image">
                         <p class="image-caption"><strong>The Members List:</strong> Every gym member appears here. Search by name, apply status/date filters, and use action buttons to manage them.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-magnifying-glass"></i><span>Search members by name or phone</span></div>
@@ -349,7 +308,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/member page -2.png" alt="Adding a New Member" class="interactive-image">
+                        <img loading="lazy" src="images/member page -2.png" alt="Adding a New Member" class="interactive-image">
                         <p class="image-caption"><strong>Adding a New Member:</strong> Click "+ Add Member", fill in required fields (Name, Phone, Plan), and they are added with Pending status.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-user-plus"></i><span>Click "+ Add Member" button</span></div>
@@ -358,7 +317,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/member profile _1.png" alt="Viewing a Member Profile" class="interactive-image">
+                        <img loading="lazy" src="images/member profile _1.png" alt="Viewing a Member Profile" class="interactive-image">
                         <p class="image-caption"><strong>Viewing a Member Profile:</strong> Click the eye icon to see their status badge, next bill date, total amount paid, and more details.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-id-card"></i><span>Complete member information</span></div>
@@ -367,7 +326,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/edit member page.png" alt="Editing a Member" class="interactive-image">
+                        <img loading="lazy" src="images/edit member page.png" alt="Editing a Member" class="interactive-image">
                         <p class="image-caption"><strong>Editing a Member:</strong> Click the pencil icon to update any field. Note: Staff accounts may require Admin permission to edit.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-pen-to-square"></i><span>Update any member details</span></div>
@@ -376,7 +335,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/member profile _payments history.png" alt="Payments Tab" class="interactive-image">
+                        <img loading="lazy" src="images/member profile _payments history.png" alt="Payments Tab" class="interactive-image">
                         <p class="image-caption"><strong>Profile Tab - Payments:</strong> Full payment history for this member with date, amount, method, and the staff member who processed it.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-receipt"></i><span>Complete payment records</span></div>
@@ -385,7 +344,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/member profile _freeze history.png" alt="Freeze History" class="interactive-image">
+                        <img loading="lazy" src="images/member profile _freeze history.png" alt="Freeze History" class="interactive-image">
                         <p class="image-caption"><strong>Profile Tab - Freeze History:</strong> Temporarily pause memberships (no billing/reminders). See past freeze periods and their statuses.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-pause"></i><span>Pause membership temporarily</span></div>
@@ -394,7 +353,7 @@
                         </div>
                     </div>
                      <div class="interactive-container">
-                        <img src="images/member profile _note.png" alt="Notes Tab" class="interactive-image">
+                        <img loading="lazy" src="images/member profile _note.png" alt="Notes Tab" class="interactive-image">
                         <p class="image-caption"><strong>Profile Tab - Notes:</strong> Write and save private staff notes or special arrangements securely regarding this specific member.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-sticky-note"></i><span>Add private staff notes</span></div>
@@ -416,7 +375,7 @@
                 </div>
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/add payment page .png" alt="The Payment Form" class="interactive-image">
+                        <img loading="lazy" src="images/add payment page .png" alt="The Payment Form" class="interactive-image">
                         <p class="image-caption"><strong>The Payment Form:</strong> Click the card icon next to a member to open the form. Enter Amount, Months to Pay, and Payment Method.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-indian-rupee-sign"></i><span>Enter payment amount in rupees</span></div>
@@ -426,7 +385,7 @@
                         </div>
                     </div>
                     <div class="interactive-container">
-                        <img src="images/payments page .png" alt="The Payments Page" class="interactive-image">
+                        <img loading="lazy" src="images/payments page .png" alt="The Payments Page" class="interactive-image">
                         <p class="image-caption"><strong>The Payments Page:</strong> View a full list of every transaction recorded across all members, alongside total collection summaries.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-list"></i><span>All transactions in one place</span></div>
@@ -449,7 +408,7 @@
                 </div>
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/reminder page.png" alt="Sending Reminders" class="interactive-image">
+                        <img loading="lazy" src="images/reminder page.png" alt="Sending Reminders" class="interactive-image">
                         <p class="image-caption"><strong>The Message Template:</strong> Customise using {NAME}, {DUE_MONTHS}, and {AMOUNT} placeholders. Click the green WhatsApp button to send, or "Bulk WhatsApp" for everyone.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i><span>Send via WhatsApp directly</span></div>
@@ -472,7 +431,7 @@
                 </div>
                 <div class="interactive-grid">
                     <div class="interactive-container">
-                        <img src="images/report page .png" alt="Metrics and Charts" class="interactive-image">
+                        <img loading="lazy" src="images/report page .png" alt="Metrics and Charts" class="interactive-image">
                         <p class="image-caption"><strong>Report Tabs:</strong> Overview, Revenue, Members, Risk, Operations, and Comparative tabs give you deep insights. Filter by date and export as PDF.</p>
                         <div class="feature-points">
                             <div class="feature-point"><i class="fa-solid fa-chart-pie"></i><span>6 report tabs for full analysis</span></div>
@@ -614,14 +573,14 @@
         <span><kbd>ESC</kbd> Close</span>
     </div>
 
-    <!-- GSAP Core & Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- GSAP Core & Plugins (deferred) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     
-    <!-- Lenis for smooth scrolling -->
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <!-- Lenis for smooth scrolling (deferred) -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js" defer></script>
 
-    <!-- Application Logic -->
-    <script src="script.js?v=3"></script>
+    <!-- Application Logic (deferred) -->
+    <script src="script.js?v=4" defer></script>
 </body>
 </html>
