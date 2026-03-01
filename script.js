@@ -845,13 +845,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ================================
-    // PRINT FUNCTIONALITY
+    // DOWNLOAD BROCHURE FUNCTIONALITY
     // ================================
     const fabPrint = document.querySelector(".fab-print");
     
     if (fabPrint) {
         fabPrint.addEventListener("click", () => {
-            window.print();
+            const link = document.createElement('a');
+            link.href = 'FitManager_Sales_Brochure (1).pdf';
+            link.download = 'FitManager_Sales_Brochure.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     }
 
