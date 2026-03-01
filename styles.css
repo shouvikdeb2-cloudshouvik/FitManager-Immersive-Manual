@@ -1249,7 +1249,254 @@ body::before {
   }
 }
 
-/* Tablet Portrait (600px - 768px) */
+/* Tablet Landscape & Small Laptops (768px - 1024px) */
+@media (max-width: 1024px) {
+  .section-info-panel {
+    display: none;
+  }
+  .section-container {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  .section-desc {
+    margin: 0 auto;
+  }
+  .nav-links {
+    gap: 1.5rem;
+  }
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+  .navbar {
+    padding: 1rem 2rem;
+  }
+  .hero-title {
+    font-size: 5rem;
+    letter-spacing: 6px;
+  }
+  .section-title {
+    font-size: 3rem;
+  }
+  .interactive-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+  .text-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  }
+}
+
+/* ================================
+   IPAD & TABLET OPTIMIZATION (769px - 1024px)
+   ================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+    padding-left: max(1.5rem, env(safe-area-inset-left, 1.5rem));
+    padding-right: max(1.5rem, env(safe-area-inset-right, 1.5rem));
+  }
+
+  .nav-links {
+    gap: 1.25rem;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-enroll {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .hero {
+    padding: 0 2rem;
+    min-height: 100vh;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    letter-spacing: 4px;
+    line-height: 1.1;
+  }
+
+  .hero-tagline {
+    font-size: 1.5rem;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    max-width: 560px;
+    line-height: 1.75;
+  }
+
+  .hero-badges {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-badge {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .main-content {
+    padding: 3rem 2rem 4rem;
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  .section-title {
+    font-size: clamp(2.25rem, 4vw, 2.75rem);
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    max-width: 600px;
+  }
+
+  .interactive-container {
+    max-width: 720px;
+    padding: 1.25rem;
+    border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .interactive-image {
+    border-radius: 12px;
+  }
+
+  .image-caption {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .feature-points {
+    padding: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .feature-point {
+    padding: 0.7rem 1rem;
+  }
+
+  .text-card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .text-card-grid .interactive-container {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+
+  .info-box,
+  .requirements-box {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.5rem;
+  }
+
+  .requirements-grid {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .faq-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    padding: 1.25rem;
+  }
+
+  .section-indicators {
+    right: 20px;
+    gap: 14px;
+  }
+
+  .indicator {
+    width: 14px;
+    height: 14px;
+  }
+
+  .indicator::before {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .reading-progress {
+    left: 20px;
+    bottom: 24px;
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+
+  .fab-top,
+  .fab-print {
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .footer {
+    padding: 3rem 2rem 2rem;
+  }
+}
+
+/* iPad Portrait (768px) - bridge between phone and tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 4rem);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+  }
+
+  .interactive-container {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text-card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+
+  .text-card-grid .interactive-container {
+    padding: 1.25rem;
+  }
+
+  .hero-badges {
+    gap: 0.75rem;
+  }
+
+  .hero-badge {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Tablet Portrait & iPad (768px and below) */
 @media (max-width: 768px) {
   html {
     height: 100%;
