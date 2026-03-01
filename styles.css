@@ -23,13 +23,20 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-space);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* Fixed Background Element */
@@ -2656,6 +2663,32 @@ body::before {
 
 /* Mobile-first improvements for phones */
 @media (max-width: 768px) {
+  /* CRITICAL: Prevent horizontal scrolling */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    position: relative !important;
+  }
+  
+  /* Ensure all containers stay within viewport */
+  .main-content,
+  .section,
+  .section-container,
+  .interactive-grid,
+  .hero,
+  .navbar,
+  .footer {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix any overflowing elements */
+  img, video, iframe, svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
   /* Disable sticky behavior on mobile for better scrolling */
   .interactive-container {
     position: relative !important;
@@ -2664,6 +2697,7 @@ body::before {
     filter: none !important;
     opacity: 1 !important;
     margin-bottom: 2rem;
+    max-width: 100% !important;
   }
   
   /* Better image grid spacing */
@@ -2704,11 +2738,17 @@ body::before {
   .strength-arc,
   .heartbeat-svg,
   .power-icon,
-  .gradient-orb {
+  .gradient-orb,
+  .grid-lines,
+  .particles,
+  .particles-global,
+  .floating-element,
+  .stars,
+  .custom-cursor {
     display: none !important;
   }
   
-  /* Improved hero for mobile */
+  /* Ensure hero doesn't overflow */
   .hero {
     display: flex;
     flex-direction: column;
@@ -2716,6 +2756,9 @@ body::before {
     align-items: center;
     text-align: center;
     padding: 100px 1.5rem 2rem;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
   }
   
   .hero-content {
@@ -2820,11 +2863,16 @@ body::before {
   .section-title {
     font-size: 2rem !important;
     padding: 0 1rem;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto;
   }
   
   .section-desc {
     font-size: 0.95rem !important;
     padding: 0 1rem;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
   }
   
   /* Cards with images - full width */
@@ -2832,6 +2880,8 @@ body::before {
     margin: 0 0.5rem 1.5rem !important;
     padding: 12px !important;
     border-radius: 12px !important;
+    max-width: calc(100% - 1rem) !important;
+    overflow: hidden !important;
   }
   
   /* Image captions */
@@ -2843,6 +2893,8 @@ body::before {
     border-left: 3px solid var(--accent) !important;
     background: rgba(249, 115, 22, 0.05);
     border-radius: 0 8px 8px 0;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
   }
   
   /* Text cards - better mobile grid */
