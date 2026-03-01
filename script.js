@@ -4,20 +4,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // PERFORMANCE CHECK - DISABLE HEAVY ANIMATIONS ON LOW-END DEVICES
     // ================================
     const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
     const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const enableHeavyAnimations = !isMobile && !isLowEndDevice && !prefersReducedMotion;
+    const enableHeavyAnimations = !isMobile && !isTablet && !isLowEndDevice && !prefersReducedMotion;
     
     // ================================
     // REGISTER GSAP PLUGINS
     // ================================
     gsap.registerPlugin(ScrollTrigger);
     
-    // Optimize ScrollTrigger for performance
+    // Optimize ScrollTrigger for performance - more aggressive settings
     ScrollTrigger.config({
         limitCallbacks: true,
-        ignoreMobileResize: true
+        ignoreMobileResize: true,
+        syncInterval: 100,
+        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
     });
+    
+    // Reduce GSAP ticker lag smoothing for smoother performance
+    gsap.ticker.lagSmoothing(500, 33);
     
     // ================================
     // PROFESSIONAL GSAP ANIMATIONS (CONDITIONAL)
@@ -327,8 +333,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
     
-    // Smooth Parallax on Scroll
+    // Smooth Parallax on Scroll - optimized for performance
     function initParallax() {
+        // Only enable parallax on high-end devices
+        if (!enableHeavyAnimations) return;
+        
         // Hero content parallax
         gsap.to('.hero-content', {
             y: -80,
@@ -339,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: ".hero",
                 start: "top top",
                 end: "bottom top",
-                scrub: 0.5
+                scrub: 1.5
             }
         });
         
@@ -351,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: ".hero",
                 start: "top top",
                 end: "bottom top",
-                scrub: 0.5
+                scrub: 1.5
             }
         });
         
@@ -362,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: ".hero",
                 start: "top top",
                 end: "bottom top",
-                scrub: 0.5
+                scrub: 1.5
             }
         });
     }
@@ -463,25 +472,44 @@ document.addEventListener("DOMContentLoaded", () => {
     initAnimations();
 
     // ================================
-    // LENIS SMOOTH SCROLLING - DISABLED ON MOBILE FOR PERFORMANCE
+    // LENIS SMOOTH SCROLLING - OPTIMIZED FOR PERFORMANCE
     // ================================
     let lenis = null;
-    if (!isMobile) {
+    // Disable Lenis on mobile and tablets for native smooth scrolling
+    const useLenis = !isMobile && !isTablet && !prefersReducedMotion;
+    
+    if (useLenis) {
         lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
             smooth: true,
             smoothWheel: true,
-            wheelMultiplier: 1,
-            touchMultiplier: 1.5,
+            wheelMultiplier: 0.8,
+            touchMultiplier: 1.2,
+            infinite: false,
+            autoResize: true
         });
 
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
+        // Throttle ScrollTrigger updates for better performance
+        let lastScrollUpdate = 0;
+        lenis.on('scroll', () => {
+            const now = performance.now();
+            if (now - lastScrollUpdate > 16) { // ~60fps throttle
+                ScrollTrigger.update();
+                lastScrollUpdate = now;
+            }
         });
-        gsap.ticker.lagSmoothing(0);
+        
+        // Use RAF more efficiently
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    } else {
+        // On tablets/mobile, ensure native smooth scroll works well
+        document.documentElement.style.scrollBehavior = 'smooth';
     }
 
     // Safe scroll-to helper: use Lenis on desktop, native smooth scroll on mobile
@@ -977,18 +1005,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-        // EXIT: Only when next card pushes this one out
+        // EXIT: Only when next card pushes this one out - optimized scrub
         if (nextCard) {
             gsap.to(card, {
                 scale: 0.92,
                 opacity: 0,
                 y: -50,
-                filter: "blur(3px)",
                 scrollTrigger: {
                     trigger: nextCard,
                     start: "top 70%",
                     end: "top 20%",
-                    scrub: 0.5
+                    scrub: 1
                 }
             });
         }
@@ -1017,102 +1044,110 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 5. Enhanced Parallax for hero and cinematic background elements
-    gsap.to(".stars", {
-        scrollTrigger: {
-            trigger: "body",
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.5
-        },
-        y: "30%",
-        opacity: 0.1
-    });
+    // Only enable parallax on high-end devices
+    if (enableHeavyAnimations) {
+        gsap.to(".stars", {
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1.5
+            },
+            y: "30%",
+            opacity: 0.1
+        });
+    }
 
-    // Hero content parallax on scroll
+    // Hero content parallax on scroll - optimized scrub value
     gsap.to(".hero-content", {
         scrollTrigger: {
             trigger: ".hero",
             start: "top top",
             end: "bottom top",
-            scrub: 0.3
+            scrub: 1
         },
         y: -100,
         opacity: 0,
-        scale: 0.95,
-        filter: "blur(10px)"
+        scale: 0.95
     });
 
-    // Glowing orb depth effect
-    gsap.to(".glowing-orb", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.5
-        },
-        y: "20%",
-        scale: 1.2,
-        opacity: 0.5
-    });
+    // Glowing orb depth effect - only on high-end devices
+    if (enableHeavyAnimations) {
+        gsap.to(".glowing-orb", {
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1.5
+            },
+            y: "20%",
+            scale: 1.2,
+            opacity: 0.5
+        });
+    }
 
-    // Floating elements drift away
-    gsap.to(".floating-element.left", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.4
-        },
-        x: -100,
-        opacity: 0
-    });
-
-    gsap.to(".floating-element.right", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.4
-        },
-        x: 100,
-        opacity: 0
-    });
-
-    // 6. 3D Tilt Effect and Dynamic Glow on Cards using GSAP
-    const allInteractiveCards = gsap.utils.toArray(".interactive-container");
-    allInteractiveCards.forEach(card => {
-        card.addEventListener("mousemove", e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -5;
-            const rotateY = ((x - centerX) / centerX) * 5;
-
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-
-            gsap.to(card, {
-                rotationX: rotateX,
-                rotationY: rotateY,
-                transformPerspective: 1000,
-                duration: 0.4,
-                ease: "power2.out"
-            });
+    // Floating elements drift away - only on high-end devices
+    if (enableHeavyAnimations) {
+        gsap.to(".floating-element.left", {
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
+            },
+            x: -100,
+            opacity: 0
         });
 
-        card.addEventListener("mouseleave", () => {
-            gsap.to(card, {
-                rotationX: 0,
-                rotationY: 0,
-                duration: 0.4,
-                ease: "power2.out"
+        gsap.to(".floating-element.right", {
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
+            },
+            x: 100,
+            opacity: 0
+        });
+    }
+
+    // 6. 3D Tilt Effect and Dynamic Glow on Cards using GSAP - Only on high-end devices
+    if (enableHeavyAnimations) {
+        const allInteractiveCards = gsap.utils.toArray(".interactive-container");
+        allInteractiveCards.forEach(card => {
+            card.addEventListener("mousemove", e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    transformPerspective: 1000,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+
+            card.addEventListener("mouseleave", () => {
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
             });
         });
-    });
+    }
 
     // 6. Smooth Scrolling for Internal Links using Lenis
     const navLinks = document.querySelectorAll(".nav-links a");
@@ -1141,12 +1176,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Scroll spy for navigation, indicators, FAB visibility, and reading progress
-    window.addEventListener("scroll", () => {
+    // Throttle scroll event handler for better performance
+    let scrollTicking = false;
+    let lastKnownScrollPosition = 0;
+    
+    function handleScrollUpdate() {
         let current = "";
+        const scrollY = lastKnownScrollPosition;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 150) {
+            if (scrollY >= sectionTop - 150) {
                 current = section.getAttribute("id");
             }
         });
@@ -1163,21 +1203,27 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Update reading progress
         if (readingProgress) {
-            const scrollTop = window.pageYOffset;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
+            const progress = (scrollY / docHeight) * 100;
             readingProgress.style.setProperty("--progress", progress + "%");
         }
 
         // FAB toggle (both top and print)
-        if (window.scrollY > 500) {
-            fabTop.classList.add("visible");
-            if (fabPrint) fabPrint.classList.add("visible");
-        } else {
-            fabTop.classList.remove("visible");
-            if (fabPrint) fabPrint.classList.remove("visible");
+        const showFabs = scrollY > 500;
+        fabTop.classList.toggle("visible", showFabs);
+        if (fabPrint) fabPrint.classList.toggle("visible", showFabs);
+        
+        scrollTicking = false;
+    }
+    
+    window.addEventListener("scroll", () => {
+        lastKnownScrollPosition = window.pageYOffset;
+        
+        if (!scrollTicking) {
+            requestAnimationFrame(handleScrollUpdate);
+            scrollTicking = true;
         }
-    });
+    }, { passive: true });
 
     // 8. Navbar cinematic effect on scroll
     const navbar = document.querySelector(".navbar");
@@ -1188,24 +1234,26 @@ document.addEventListener("DOMContentLoaded", () => {
         onLeaveBack: () => navbar.classList.remove("scrolled")
     });
 
-    // 9. Section divider glow effects
-    const sectionContainers = document.querySelectorAll(".section-container");
-    sectionContainers.forEach(container => {
-        gsap.fromTo(container, 
-            { "--glow-opacity": 0 },
-            {
-                "--glow-opacity": 1,
-                scrollTrigger: {
-                    trigger: container,
-                    start: "top 70%",
-                    end: "top 30%",
-                    scrub: 0.5
+    // 9. Section divider glow effects - only on high-end devices
+    if (enableHeavyAnimations) {
+        const sectionContainers = document.querySelectorAll(".section-container");
+        sectionContainers.forEach(container => {
+            gsap.fromTo(container, 
+                { "--glow-opacity": 0 },
+                {
+                    "--glow-opacity": 1,
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 70%",
+                        end: "top 30%",
+                        scrub: 1
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
 
-    // 10. Smooth progress indicator
+    // 10. Smooth progress indicator - optimized scrub
     gsap.to(".progress-bar", {
         scaleX: 1,
         ease: "none",
@@ -1213,7 +1261,7 @@ document.addEventListener("DOMContentLoaded", () => {
             trigger: "body",
             start: "top top",
             end: "bottom bottom",
-            scrub: 0.3
+            scrub: 1
         }
     });
 
@@ -1271,12 +1319,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 12. Responsive: Adjust animations on resize
+    // 12. Responsive: Adjust animations on resize - debounced for performance
     let resizeTimer;
+    let lastWidth = window.innerWidth;
+    
     window.addEventListener("resize", () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 250);
-    });
+            // Only refresh if width changed significantly (avoids mobile address bar issues)
+            if (Math.abs(window.innerWidth - lastWidth) > 50) {
+                lastWidth = window.innerWidth;
+                ScrollTrigger.refresh();
+            }
+        }, 400);
+    }, { passive: true });
 });
