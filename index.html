@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitManager | Immersive Manual</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css?v=33">
+</head>
+<body>
+
+    <!-- Fixed Background for Mobile -->
+    <div class="fixed-bg" aria-hidden="true"></div>
+
+    <!-- Custom Cursor (Desktop) -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+
+    <!-- Professional Gym Background Elements -->
+    <div class="pro-gym-bg" aria-hidden="true">
+        <!-- Gradient Mesh Orbs -->
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        
+        <!-- Geometric Grid Lines -->
+        <svg class="grid-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgba(249,115,22,0.1)"/>
+                    <stop offset="100%" style="stop-color:rgba(239,68,68,0.05)"/>
+                </linearGradient>
+            </defs>
+            <line x1="0" y1="25" x2="100" y2="25" stroke="url(#gridGrad)" stroke-width="0.1"/>
+            <line x1="0" y1="50" x2="100" y2="50" stroke="url(#gridGrad)" stroke-width="0.1"/>
+            <line x1="0" y1="75" x2="100" y2="75" stroke="url(#gridGrad)" stroke-width="0.1"/>
+            <line x1="25" y1="0" x2="25" y2="100" stroke="url(#gridGrad)" stroke-width="0.1"/>
+            <line x1="50" y1="0" x2="50" y2="100" stroke="url(#gridGrad)" stroke-width="0.1"/>
+            <line x1="75" y1="0" x2="75" y2="100" stroke="url(#gridGrad)" stroke-width="0.1"/>
+        </svg>
+        
+        <!-- Strength Progress Arc -->
+        <svg class="strength-arc" viewBox="0 0 200 200">
+            <defs>
+                <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#f97316"/>
+                    <stop offset="100%" style="stop-color:#ef4444"/>
+                </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="4"/>
+            <circle class="progress-arc" cx="100" cy="100" r="80" fill="none" stroke="url(#arcGrad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="502" stroke-dashoffset="502" transform="rotate(-90 100 100)"/>
+        </svg>
+        
+        <!-- Pulse Heartbeat -->
+        <svg class="heartbeat-svg" viewBox="0 0 400 100">
+            <path class="heartbeat-line" d="M0,50 L80,50 L100,50 L120,20 L140,80 L160,35 L180,65 L200,50 L400,50" fill="none" stroke="rgba(239,68,68,0.3)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        
+        <!-- Floating Power Icon -->
+        <div class="power-icon">
+            <i class="fa-solid fa-bolt"></i>
+        </div>
+        
+    </div>
+    
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-wrap">
+        <svg class="scroll-progress-svg" viewBox="0 0 100 100">
+            <circle class="progress-bg" cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/>
+            <circle class="progress-fill" cx="50" cy="50" r="45" fill="none" stroke="url(#progressGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" transform="rotate(-90 50 50)"/>
+            <defs>
+                <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#f97316"/>
+                    <stop offset="100%" style="stop-color:#22c55e"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <span class="progress-percent">0%</span>
+    </div>
+
+    <!-- Global Particles Background -->
+    <div class="particles-global" id="particles" aria-hidden="true"></div>
+
+    <!-- Section Indicators -->
+    <nav class="section-indicators" aria-label="Section navigation">
+        <a href="#hero" class="indicator active" data-section="hero" data-tooltip="Home" aria-label="Go to Home section"><span class="sr-only">Home</span></a>
+        <a href="#getting-started" class="indicator" data-section="getting-started" data-tooltip="Getting Started" aria-label="Go to Getting Started section"><span class="sr-only">Getting Started</span></a>
+        <a href="#activation" class="indicator" data-section="activation" data-tooltip="Activation" aria-label="Go to Activation section"><span class="sr-only">Activation</span></a>
+        <a href="#dashboard" class="indicator" data-section="dashboard" data-tooltip="Dashboard" aria-label="Go to Dashboard section"><span class="sr-only">Dashboard</span></a>
+        <a href="#members" class="indicator" data-section="members" data-tooltip="Members" aria-label="Go to Members section"><span class="sr-only">Members</span></a>
+        <a href="#payments" class="indicator" data-section="payments" data-tooltip="Payments" aria-label="Go to Payments section"><span class="sr-only">Payments</span></a>
+        <a href="#reminders" class="indicator" data-section="reminders" data-tooltip="Reminders" aria-label="Go to Reminders section"><span class="sr-only">Reminders</span></a>
+        <a href="#reports" class="indicator" data-section="reports" data-tooltip="Reports" aria-label="Go to Reports section"><span class="sr-only">Reports</span></a>
+        <a href="#admin" class="indicator" data-section="admin" data-tooltip="Admin & Ref" aria-label="Go to Admin section"><span class="sr-only">Admin & Ref</span></a>
+    </nav>
+
+    <!-- Section Info Panel -->
+    <div class="section-info-panel" id="sectionInfoPanel">
+        <div class="info-panel-content">
+            <div class="info-icon"><i class="fa-solid fa-home"></i></div>
+            <h3 class="info-title">Welcome</h3>
+            <p class="info-text">Explore the FitManager User Guide</p>
+            <div class="info-tip">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Scroll down to begin</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reading Progress -->
+    <div class="reading-progress">
+        <span class="current-section">Home</span>
+        <span class="section-count">1 / 9</span>
+    </div>
+
+    <!-- Cinematic Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Cinematic Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="images/FitManager.png" alt="FitManager Logo" class="logo-img">
+        </div>
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="#getting-started">Getting Started</a>
+            <a href="#activation">Activation</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#members">Members</a>
+            <a href="#payments">Payments</a>
+            <a href="#reminders">Reminders</a>
+            <a href="#reports">Reports</a>
+            <a href="#admin">Admin & Ref</a>
+        </nav>
+        <a href="#getting-started" class="btn-enroll">Explore</a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-toggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu">
+        <nav class="mobile-nav-links" aria-label="Mobile navigation">
+            <a href="#getting-started">Getting Started</a>
+            <a href="#activation">Activation</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#members">Members</a>
+            <a href="#payments">Payments</a>
+            <a href="#reminders">Reminders</a>
+            <a href="#reports">Reports</a>
+            <a href="#admin">Admin & Ref</a>
+        </nav>
+    </div>
+
+    <!-- Immersive Hero Section -->
+    <section id="hero" class="hero">
+        <div class="stars"></div>
+        <div class="hero-content">
+            <div class="subtitle-wrap">
+                <div class="line"></div>
+                <span class="subtitle">GYM SOFTWARE</span>
+                <div class="line"></div>
+            </div>
+            <h1 class="hero-title text-reveal">FITMANAGER</h1>
+            <p class="hero-desc">Explore the definitive Quick User Guide to managing your gym at a glance. Discover how to install, manage members, record payments, and protect your data.</p>
+            
+            <!-- Key Benefits Badges -->
+            <div class="hero-badges">
+                <div class="hero-badge"><i class="fa-solid fa-wifi-slash"></i><span>100% Offline</span></div>
+                <div class="hero-badge"><i class="fa-solid fa-lock"></i><span>Data Stays Local</span></div>
+                <div class="hero-badge"><i class="fa-solid fa-infinity"></i><span>No Subscription</span></div>
+            </div>
+            
+            <a href="#getting-started" class="btn-primary magnetic-btn"><span>START EXPLORING</span></a>
+        </div>
+        
+        <div class="floating-element left"><i class="fa-solid fa-dumbbell"></i><span>OFFLINE</span><div class="dot"></div></div>
+        <div class="floating-element right"><div class="dot orange"></div><span>SECURE</span><i class="fa-solid fa-heart-pulse"></i></div>
+        
+        <div class="glowing-orb">
+            <div class="scroll-indicator"><i class="fa-solid fa-arrow-down"></i></div>
+        </div>
+    </section>
+
+    <!-- Logo Showcase Section -->
+    <section class="logo-showcase">
+        <div class="logo-showcase-inner">
+            <img src="images/logo.png" alt="FitManager Logo" class="showcase-logo">
+            <div class="logo-glow"></div>
+        </div>
+    </section>
+
+    <!-- Main Content Flow -->
+    <main class="main-content">
+
+        <!-- 1 Getting Started -->
+        <section id="getting-started" class="section">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 01</div>
+                    <h2 class="section-title">Getting Started</h2>
+                    <p class="section-desc">Install FitManager and log in for the first time. Follow these quick steps to perform the first-time setup efficiently.</p>
+                </div>
+                
+                <!-- System Requirements Box -->
+                <div class="info-box requirements-box">
+                    <h4><i class="fa-solid fa-desktop"></i> System Requirements</h4>
+                    <div class="requirements-grid">
+                        <div class="req-item"><i class="fa-brands fa-windows"></i><span>Windows 10+</span></div>
+                        <div class="req-item"><i class="fa-solid fa-microchip"></i><span>2GB RAM</span></div>
+                        <div class="req-item"><i class="fa-solid fa-hard-drive"></i><span>200MB Space</span></div>
+                        <div class="req-item"><i class="fa-solid fa-wifi-slash"></i><span>No Internet Required</span></div>
+                    </div>
+                </div>
+                
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/Activate FitManager page.png" alt="Activate Software" class="interactive-image">
+                        <p class="image-caption"><strong>1. Activate the Software:</strong> Enter the master key provided with your software to unlock the first-time setup.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/Login_Page-2.png" alt="Gym Branding" class="interactive-image">
+                        <p class="image-caption"><strong>2. Gym Branding:</strong> Enter your gym name and optionally upload a logo. Both appear on every page and on printed receipts.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/Login_Page-3.png" alt="Create Admin Account" class="interactive-image">
+                        <p class="image-caption"><strong>3. Create Admin Account:</strong> Set your admin username and password. If you forget your admin password, use your provided emergency key.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/Login_Page.png" alt="First Login" class="interactive-image">
+                        <p class="image-caption"><strong>4. First Login:</strong> Leave Username blank for admin, enter your password, then click Login to launch the Dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 Activation & Trial -->
+        <section id="activation" class="section alt-layout">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 02</div>
+                    <h2 class="section-title">Activation & Trial</h2>
+                    <p class="section-desc">Unlock FitManager permanently with your licence key. Activate before your 30-day trial ends to avoid interruptions.</p>
+                </div>
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/trial bar.png" alt="Trial Bar" class="interactive-image">
+                        <p class="image-caption"><strong>The Trial Period:</strong> A red bar at the top counts down your 30-day free trial. All features are available during this time.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/trial active page.png" alt="How to Activate" class="interactive-image">
+                        <p class="image-caption"><strong>How to Activate:</strong> Copy your Machine ID, send it to the developer, and paste the unique licence key you receive to unlock permanently.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Dashboard -->
+        <section id="dashboard" class="section">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 03</div>
+                    <h2 class="section-title">Dashboard</h2>
+                    <p class="section-desc">Your gym's command centre — open this every morning for an instant health check of your gym's stats.</p>
+                </div>
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/dashboard-1.png" alt="Summary Cards" class="interactive-image">
+                        <p class="image-caption"><strong>Summary Cards:</strong> Instantly view Total Members (Blue), Active Members (Green), Pending Members (Amber), and Blocked Members (Red).</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/dashboard-2.png" alt="Revenue Summary" class="interactive-image">
+                        <p class="image-caption"><strong>Revenue Summary & Date Filters:</strong> View Today's Collection, Monthly Revenue, and Recent Activities using time filters.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Managing Members -->
+        <section id="members" class="section alt-layout">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 04</div>
+                    <h2 class="section-title">Managing Members</h2>
+                    <p class="section-desc">Add, view, edit, block, freeze, and search members. Visual badges tell you their current payment status at a glance.</p>
+                </div>
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/member page -1 .png" alt="The Members List" class="interactive-image">
+                        <p class="image-caption"><strong>The Members List:</strong> Every gym member appears here. Search by name, apply status/date filters, and use action buttons to manage them.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/member page -2.png" alt="Adding a New Member" class="interactive-image">
+                        <p class="image-caption"><strong>Adding a New Member:</strong> Click "+ Add Member", fill in required fields (Name, Phone, Plan), and they are added with Pending status.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/member profile _1.png" alt="Viewing a Member Profile" class="interactive-image">
+                        <p class="image-caption"><strong>Viewing a Member Profile:</strong> Click the eye icon to see their status badge, next bill date, total amount paid, and more details.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/edit member page.png" alt="Editing a Member" class="interactive-image">
+                        <p class="image-caption"><strong>Editing a Member:</strong> Click the pencil icon to update any field. Note: Staff accounts may require Admin permission to edit.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/member profile _payments history.png" alt="Payments Tab" class="interactive-image">
+                        <p class="image-caption"><strong>Profile Tab - Payments:</strong> Full payment history for this member with date, amount, method, and the staff member who processed it.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/member profile _freeze history.png" alt="Freeze History" class="interactive-image">
+                        <p class="image-caption"><strong>Profile Tab - Freeze History:</strong> Temporarily pause memberships (no billing/reminders). See past freeze periods and their statuses.</p>
+                    </div>
+                     <div class="interactive-container">
+                        <img src="images/member profile _note.png" alt="Notes Tab" class="interactive-image">
+                        <p class="image-caption"><strong>Profile Tab - Notes:</strong> Write and save private staff notes or special arrangements securely regarding this specific member.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Recording Payments -->
+        <section id="payments" class="section">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 05</div>
+                    <h2 class="section-title">Recording Payments</h2>
+                    <p class="section-desc">Log every payment immediately to keep balances accurate and member statuses updated.</p>
+                </div>
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/add payment page .png" alt="The Payment Form" class="interactive-image">
+                        <p class="image-caption"><strong>The Payment Form:</strong> Click the card icon next to a member to open the form. Complete with Amount, Months to Pay, and Payment Method.</p>
+                    </div>
+                    <div class="interactive-container">
+                        <img src="images/payments page .png" alt="The Payments Page" class="interactive-image">
+                        <p class="image-caption"><strong>The Payments Page:</strong> View a full list of every transaction recorded across all members, alongside total collection summaries.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6 Sending Reminders -->
+        <section id="reminders" class="section alt-layout">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 06</div>
+                    <h2 class="section-title">Sending Reminders</h2>
+                    <p class="section-desc">WhatsApp payment reminders for members who owe money. Send individually or all at once.</p>
+                </div>
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/reminder page.png" alt="Sending Reminders" class="interactive-image">
+                        <p class="image-caption"><strong>The Message Template:</strong> Customise the template using {NAME} and {AMOUNT}. Click the green WhatsApp button to send, or "Bulk WhatsApp" for everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7 Reports -->
+        <section id="reports" class="section">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTION 07</div>
+                    <h2 class="section-title">Reports</h2>
+                    <p class="section-desc">Charts and analytics to understand your gym's performance securely from your local database.</p>
+                </div>
+                <div class="interactive-grid">
+                    <div class="interactive-container">
+                        <img src="images/report page .png" alt="Metrics and Charts" class="interactive-image">
+                        <p class="image-caption"><strong>Key Metrics & Report Tabs:</strong> View Total Revenue, Average Monthly Revenue, Collection Rates, and use specific date filters. Export all as a PDF.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8 & 9 Admin & Backups + Quick Reference -->
+        <section id="admin" class="section alt-layout">
+            <div class="section-container">
+                <div class="section-text">
+                    <div class="eyebrow">SECTIONS 08 & 09</div>
+                    <h2 class="section-title">Admin & Quick Reference</h2>
+                    <p class="section-desc">Configure settings, manage staff, protect your data, and use daily checklists to stay on track.</p>
+                </div>
+                
+                <div class="text-card-grid">
+                    
+                    <div class="interactive-container text-card">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-family: var(--font-serif); font-size: 1.8rem;">Admin & Backups</h3>
+                        <p class="image-caption" style="border: none; padding: 0; margin-bottom: 0.8rem;">
+                            <strong>Membership Plans:</strong> Set default prices in Admin > Membership Plans (e.g., Basic at 1,500/mo).<br><br>
+                            <strong>Auto-Block Rules:</strong> Create rules to block members automatically after X unpaid months, with grace periods.<br><br>
+                            <strong>Staff Accounts:</strong> Assign roles ("Staff" for limited access, "Admin" for full access).<br><br>
+                            <strong style="color: #ef4444;">Backups:</strong> Your most important task. Locally store database via Admin > Backup & Reset. Save your JSON file manually to a USB or Cloud Drive.
+                        </p>
+                    </div>
+
+                    <div class="interactive-container text-card">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-family: var(--font-serif); font-size: 1.8rem;">Daily Checklist</h3>
+                        <p class="image-caption" style="border: none; padding: 0; margin-bottom: 0.8rem;">
+                            <strong>Morning:</strong> Open FitManager, check Dashboard. Note pending/blocked members.<br><br>
+                            <strong>During Day:</strong> Add new members, record received payments immediately.<br><br>
+                            <strong>Evening:</strong> Check Today's Collection on Dashboard. Send WhatsApp Reminders. Perform Admin Backup and close the app.
+                        </p>
+                    </div>
+
+                    <div class="interactive-container text-card">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-family: var(--font-serif); font-size: 1.8rem;">Quick Reference Fixes</h3>
+                        <p class="image-caption" style="border: none; padding: 0; margin-bottom: 0.8rem;">
+                            <strong>App closes immediately:</strong> Wait 30 seconds and try again, or restart PC.<br><br>
+                            <strong>Buttons greyed out:</strong> Your 30-day trial has expired. Activate with a licence key.<br><br>
+                            <strong>Buttons greyed out:</strong> Your 30-day trial has expired. Activate with a licence key.<br><br>
+                            <strong>Members disappeared:</strong> Clear search box and reset Status filter to "All".<br><br>
+                            <strong>White/blank screen:</strong> Wait 15 seconds, then close and reopen the app.<br><br>
+                            <strong>Data location:</strong> <code style="background: rgba(56,189,248,0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem;">C:\Users\[You]\AppData\Roaming\GymForce\data\</code>
+                        </p>
+                    </div>
+
+                    <div class="interactive-container text-card">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-family: var(--font-serif); font-size: 1.8rem;">Billing & Freeze Rules</h3>
+                        <p class="image-caption" style="border: none; padding: 0; margin-bottom: 0.8rem;">
+                            <strong>Billing Rules (Admin):</strong><br>
+                            • Max months payable in advance<br>
+                            • Allow partial payments<br>
+                            • Late fee amount &amp; days<br><br>
+                            <strong>Freeze Rules:</strong><br>
+                            • Max/Min freeze duration<br>
+                            • Auto-resume after period<br>
+                            • Freeze stops reminders &amp; auto-block<br>
+                            • Require reason for freeze
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="faq-section">
+                    <h3 style="color: var(--text-primary); margin-bottom: 1.5rem; font-family: var(--font-serif); font-size: 2rem; text-align: center;"><i class="fa-solid fa-circle-question" style="color: var(--accent); margin-right: 0.5rem;"></i>Frequently Asked Questions</h3>
+                    
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h4><i class="fa-solid fa-wifi-slash"></i> Does it need internet?</h4>
+                            <p>No. FitManager works 100% offline after installation. Your data never leaves your computer.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4><i class="fa-solid fa-laptop"></i> Can I use on multiple PCs?</h4>
+                            <p>Each computer needs its own license. The key is tied to your specific hardware.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4><i class="fa-solid fa-clock"></i> What does "Pending" mean?</h4>
+                            <p>Member has unpaid months. Check the "Due Amount" column to see how much they owe.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4><i class="fa-solid fa-snowflake"></i> What is "Frozen" status?</h4>
+                            <p>Membership is paused. No billing or reminders during freeze (travel, injury, etc.).</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4><i class="fa-solid fa-calendar-plus"></i> Can members pay in advance?</h4>
+                            <p>Yes! Enter multiple months in the "Months Paid" field when recording payment.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4><i class="fa-solid fa-arrows-rotate"></i> How to move data to new PC?</h4>
+                            <p>Backup on old PC → Install on new PC → Get new license → Import backup file.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>FitManager Cinematic Manual © 2026</p>
+            <div class="footer-links">
+                <span>Secure.</span>
+                <span>Offline.</span>
+                <span>Unbreakable.</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Floating Top Switch -->
+    <a href="#hero" class="fab-top"><i class="fa-solid fa-arrow-up"></i></a>
+
+    <!-- Print Button -->
+    <button class="fab-print" aria-label="Print manual"><i class="fa-solid fa-print"></i></button>
+
+    <!-- Image Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox"><i class="fa-solid fa-xmark"></i></button>
+        <button class="lightbox-prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="lightbox-next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image">
+            <p class="lightbox-caption"></p>
+        </div>
+        <div class="lightbox-counter"></div>
+    </div>
+
+    <!-- Keyboard Hints -->
+    <div class="keyboard-hints">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+        <span><kbd>ESC</kbd> Close</span>
+    </div>
+
+    <!-- GSAP Core & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis for smooth scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <!-- Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
