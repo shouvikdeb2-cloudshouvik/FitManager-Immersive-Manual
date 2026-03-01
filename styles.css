@@ -2968,6 +2968,239 @@ body::before {
   }
 }
 
+/* ================================
+   MODERN PHONE UI (768px and below)
+   ================================ */
+@media (max-width: 768px) {
+  :root {
+    --phone-radius: 20px;
+    --phone-radius-sm: 14px;
+    --phone-radius-lg: 24px;
+    --phone-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+    --phone-glass: rgba(255, 255, 255, 0.06);
+    --phone-border: rgba(255, 255, 255, 0.1);
+  }
+
+  .navbar {
+    padding: 0.75rem 1rem;
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0.75rem));
+    padding-left: max(1rem, env(safe-area-inset-left, 1rem));
+    padding-right: max(1rem, env(safe-area-inset-right, 1rem));
+    background: rgba(10, 12, 22, 0.75);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--phone-border);
+  }
+
+  .navbar.scrolled {
+    padding: 0.6rem 1rem;
+    padding-top: max(0.6rem, env(safe-area-inset-top, 0.6rem));
+    background: rgba(10, 12, 22, 0.9);
+    box-shadow: 0 1px 0 var(--phone-border);
+  }
+
+  .logo-img { height: 36px; }
+  .navbar.scrolled .logo-img { height: 32px; }
+
+  .mobile-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--phone-glass);
+    border: 1px solid var(--phone-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-toggle.active {
+    background: rgba(249, 115, 22, 0.2);
+    border-color: rgba(249, 115, 22, 0.4);
+    color: var(--accent);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(249, 115, 22, 0.12) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-title {
+    font-size: clamp(2rem, 10vw, 3.25rem);
+    letter-spacing: 2px;
+    font-weight: 600;
+    line-height: 1.05;
+  }
+
+  .hero-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--phone-border);
+    color: var(--text-primary);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-trial-badge {
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+  }
+
+  .btn-primary {
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(249, 115, 22, 0.15));
+    border: 1px solid rgba(249, 115, 22, 0.5);
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);
+  }
+
+  .progress-bar {
+    height: 4px;
+    border-radius: 0 2px 2px 0;
+    background: linear-gradient(90deg, var(--accent), var(--gym-red));
+  }
+
+  .main-content { padding: 2rem 1rem 3rem; }
+  .section { padding: 3rem 0; }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 2.5px;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .interactive-container {
+    border-radius: var(--phone-radius-lg);
+    padding: 1rem;
+    background: rgba(12, 15, 28, 0.85);
+    border: 1px solid var(--phone-border);
+    box-shadow: var(--phone-shadow);
+    backdrop-filter: blur(12px);
+    margin-bottom: 1.5rem;
+  }
+
+  .interactive-image { border-radius: var(--phone-radius-sm); }
+
+  .image-caption {
+    border-radius: var(--phone-radius-sm);
+    padding: 1rem;
+    border-left: 3px solid var(--accent);
+    background: rgba(249, 115, 22, 0.06);
+    font-size: 0.9rem;
+  }
+
+  .feature-points {
+    border-radius: var(--phone-radius-sm);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--phone-border);
+  }
+
+  .feature-point {
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .info-box,
+  .requirements-box {
+    border-radius: var(--phone-radius);
+    padding: 1.25rem;
+    background: rgba(249, 115, 22, 0.06);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+  }
+
+  .req-item {
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .text-card-grid .interactive-container {
+    border-radius: var(--phone-radius);
+    padding: 1.25rem;
+    background: rgba(12, 15, 28, 0.9);
+    border: 1px solid var(--phone-border);
+  }
+
+  .faq-item {
+    border-radius: var(--phone-radius-sm);
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--phone-border);
+  }
+
+  .mobile-menu {
+    background: rgba(8, 10, 20, 0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .mobile-nav-links {
+    gap: 0;
+    width: 100%;
+    max-width: 320px;
+    padding: 0 1rem;
+  }
+
+  .mobile-nav-links a {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    margin-bottom: 4px;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .reading-progress {
+    border-radius: 100px;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    background: rgba(10, 12, 22, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--phone-border);
+  }
+
+  .fab-top {
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(249, 115, 22, 0.15));
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.25);
+  }
+
+  .fab-print {
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--phone-border);
+    box-shadow: var(--phone-shadow);
+    backdrop-filter: blur(12px);
+  }
+
+  .footer {
+    padding: 2.5rem 1rem 2rem;
+    border-top: 1px solid var(--phone-border);
+  }
+
+  .showcase-logo {
+    filter: drop-shadow(0 0 40px rgba(249, 115, 22, 0.4));
+  }
+}
+
 /* Phone-specific improvements (under 600px) */
 @media (max-width: 600px) {
   /* Hero improvements */
@@ -3112,6 +3345,14 @@ body::before {
     align-items: center !important;
     gap: 0.75rem !important;
   }
+}
+
+/* Modern phone UI – small screens (480px) */
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(1.85rem, 9vw, 2.5rem); }
+  .section-title { font-size: clamp(1.5rem, 5.5vw, 1.9rem); }
+  .interactive-container { padding: 0.85rem; border-radius: 18px; }
+  .mobile-nav-links a { font-size: 1rem; padding: 0.9rem 1rem; }
 }
 
 /* Small phones (under 400px) */
